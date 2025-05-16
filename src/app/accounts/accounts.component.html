@@ -1,1 +1,36 @@
-<p>accounts works!</p>
+<div class="container mt-2">
+  <div class="card" *ngIf="getAccounts()">
+    <div class="card-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>
+            Id
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            Status
+          </th>
+          <th>
+            Created At
+          </th>
+          <th>
+            Balance
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let account of getAccounts()">
+          <td>{{account.id}}</td>
+          <td>{{account.type}}</td>
+          <td>{{account.status}}</td>
+          <td>{{account.createdAt}}</td>
+          <td>{{account.balance}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

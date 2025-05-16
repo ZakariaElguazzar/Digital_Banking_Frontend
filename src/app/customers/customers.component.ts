@@ -1,18 +1,29 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {NgForOf, NgIf} from '@angular/common';
+import {CustomersService} from '../services/Cust/customers.service';
 
 @Component({
   selector: 'app-customers',
-  imports: [],
+  imports: [
+    NgForOf,
+    NgIf
+  ],
   templateUrl: './customers.component.html',
-  styleUrl: './customers.component.css'
+  styleUrl: './customers.component.css',
 })
 export class CustomersComponent implements OnInit{
-
-    constructor(http:HttpClient) {
+  private customers : any;
+  constructor(private custService : CustomersService) {
     }
     ngOnInit(): void {
-        throw new Error('Method not implemented.');
-    }
+       this.custService.getCustomers().subscribe({
+         next : (data) => this.customers = data,
+        error : (err)=> console.log(err)
+      });
+  }
 
+  public getCustomers(){
+    return this.customers;
+  }
 }
+

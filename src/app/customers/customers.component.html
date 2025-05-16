@@ -1,28 +1,48 @@
 <div class="container mt-2">
-  <div class="card" *ngIf="getCustomers()">
-    <div class="card-body">
-      <table class="table">
-        <thead>
-        <tr>
-          <th>
-            Id
-          </th>
-          <th>
-            Name
-          </th>
-          <th>
-            Email
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let customer of getCustomers()">
+  <!--<div *ngIf="getMessageError()">
+    {{getMessageError() | json}}
+  </div>-->
+  <ng-container *ngIf="getCustomers() | async as list_customers; else FailureOrLoading">
+    <div class="card">
+      <div class="card-header">Customers</div>
+      <div class="card-body">
+        <div>
+          <form method="get" action="http://localhost:8080/customers/search">
+          <input type="text" [(ngModel)]="search_customer" placeholder="Search">
+          </form>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>
+              Id
+            </th>
+            <th>
+              Name
+            </th>
+            <th>
+              Email
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let customer of list_customers">
             <td>{{customer.id}}</td>
             <td>{{customer.name}}</td>
             <td>{{customer.email}}</td>
           </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  </ng-container>
+  <ng-template #FailureOrLoading >
+    <ng-container *ngIf="getMessageError(); else Loading"></ng-container>
+    <div class="alert alert-danger text-danger" role="alert">
+      {{getMessageError()}}
+    </div>
+    <ng-template #Loading>
+      Loading .....
+    </ng-template>
+  </ng-template>
 </div>

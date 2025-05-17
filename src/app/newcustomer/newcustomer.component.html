@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <ng-container *ngIf="getCreateFormGroup() as CreateFormGroup ; else FailureOrLoading">
+  <div class="card shadow rounded-4">
+    <div class="card-header bg-primary text-white fs-5 fw-bold">
+      <i class="bi bi-people-fill me-2"></i> Customer Search
+    </div>
+    <div class="card-body">
+      <div>
+        <form [formGroup]="CreateFormGroup" (ngSubmit)="handleCreateSubmit()">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="name" class="form-label fw-semibold">Name</label>
+              <input id="name" name="name" type="text" formControlName="name" class="form-control" placeholder="Enter customer name">
+              <span class="text-danger" *ngIf=" CreateFormGroup.controls['name'].touched && CreateFormGroup.controls['name'].errors && CreateFormGroup.controls['name'].errors['required'] ">Name is required</span>
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label fw-semibold">Email</label>
+              <input id="email" type="email" name="email" formControlName="email" class="form-control" placeholder="Enter customer email">
+              <span class="text-danger" *ngIf=" CreateFormGroup.controls['email'].touched && CreateFormGroup.controls['email'].errors && CreateFormGroup.controls['email'].errors['required'] ">Email is required</span>
+
+            </div>
+          </div>
+          <div class="mt-4 text-end">
+            <button [disabled]="!CreateFormGroup.valid" class="btn btn-success px-4 py-2 rounded-3">
+              Create
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </ng-container>
+  <ng-template #FailureOrLoading >
+    <ng-container *ngIf="getMessageError(); else Loading"></ng-container>
+    <div class="alert alert-danger text-danger" role="alert">
+      {{getMessageError()}}
+    </div>
+    <ng-template #Loading>
+      Loading .....
+    </ng-template>
+  </ng-template>
+</div>

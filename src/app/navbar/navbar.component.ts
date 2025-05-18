@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import { RouterLink} from '@angular/router';
 import {LoginService} from '../services/Login/login.service';
 import {NgIf} from '@angular/common';
 
@@ -14,7 +14,7 @@ import {NgIf} from '@angular/common';
 })
 export class NavbarComponent implements OnInit{
 
-  constructor(private logService:LoginService,private router : Router) {
+  constructor(private logService:LoginService) {
   }
 
   ngOnInit(): void {
@@ -22,13 +22,6 @@ export class NavbarComponent implements OnInit{
 
   handleLogout() {
     this.logService.logout()
-    this.router.navigateByUrl("/login").then(success =>
-      {
-        if (!success)
-          console.error("Navigation to /login failed!");
-      }
-    );
-
   }
   getLogService(){
     return this.logService;

@@ -13,7 +13,7 @@
         <a class="nav-link" routerLink="/admin/customers" >Customers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/newcustomer">New Customer</a>
+        <a class="nav-link" routerLink="/admin/newcustomer" *ngIf="getLogService().roles.includes('ADMIN')">New Customer</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/accounts">Accounts</a>

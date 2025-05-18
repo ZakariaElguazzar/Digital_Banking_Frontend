@@ -10,7 +10,7 @@ export class LoginService {
   isAutenticated : boolean = false;
   roles : any;
   username : any;
-  accessToken !: string;
+  accessToken !: any;
 
   constructor(private http:HttpClient) {
   }
@@ -29,5 +29,12 @@ export class LoginService {
     let decodedJwt:any= jwtDecode(this.accessToken);
     this.username = decodedJwt.sub;
     this.roles = decodedJwt.scope;
+  }
+
+  logout() {
+    this.isAutenticated=false;
+    this.username=undefined;
+    this.roles=undefined;
+    this.accessToken=undefined;
   }
 }

@@ -14,12 +14,12 @@ export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
       }
     });
     return next(logReq).pipe(
-        catchError(err => {
-          if (err.status == 401) {
-            logService.logout();
-            return throwError(() => new Error(err.message));
-          }
-        })
+      catchError(err => {
+        if (err.status === 401) {
+          logService.logout();
+        }
+        return throwError(() => new Error(err.message)); // Always return an observable
+      })
     );
   }
   return next(req);
